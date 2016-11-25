@@ -1,0 +1,42 @@
+---
+- name: Update apt
+  become: yes
+  become_method: root
+  apt: update_cache=yes
+
+- name: Install System Packages
+  become: yes
+  become_method: root
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - curl
+    - wget
+    - python-software-properties
+
+- name: Install Extra Packages
+  become: yes
+  become_method: root
+  apt: pkg={{ item }} state=latest
+  with_items: "{{ server.packages }}"
+  when: server.packages is defined
+
+- name: Configure the timezone
+  become: yes
+  become_method: root
+  template: src=timezone.tpl dest=/etc/timezone
+
+- name: More Configure the timezone
+  become: yes
+  become_method: root
+  file: src=/usr/share/zoneinfo/{{server.timezone}} dest=/etc/localtime state=link force=yes backup=yes
+
+- name: Set default system language pack
+  shell: locale-gen {{server.locale}}
+  become: yes
+  become_method: root
+
+- name: Create WWW folder and permission
+  file: path={{ configs.vm_path }} state=directory owner=www-data group=www-data mode=0775
+  become: yes
+  become_method: sudo
+

@@ -1,0 +1,25 @@
+---
+- name: Add PPA Repository
+  become: yes
+  become_method: root
+  apt_repository: repo={{ php.ppa }}
+
+- name: Update apt
+  become: yes
+  become_method: root
+  apt: update_cache=yes
+
+- name: Install PHP7
+  become: yes
+  become_method: root
+  apt: pkg=php7.0 state=latest
+
+- name: Install PHP7 Packages
+  become: yes
+  become_method: root
+  apt: pkg={{ item }} state=latest
+  with_items:
+    "{{ php.packages }}"
+  when: php.packages is defined
+  notify:
+    - restart php7-fpm

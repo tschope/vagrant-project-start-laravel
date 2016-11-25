@@ -1,0 +1,71 @@
+---
+- name: Ensure timezone is set in Apache2 php.ini
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='date.timezone ='
+              line='date.timezone = {{ php.timezone }}'
+
+- name: Enabling opcache
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='^#?opcache.enable='
+              line='opcache.enable=1'
+
+- name: Opcache - changing revalidate frequency to 0
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='opcache.revalidate_freq='
+              line='opcache.revalidate_freq=0'
+  tags: [ development ]
+
+- name: Set session.cookie_httponly to `true`
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='session.cookie_httponly(\s)?='
+              line='session.cookie_httponly=1'
+  notify: restart apache2
+
+- name: Enable session strict mode
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='session.use_strict_mode(\s)?='
+              line='session.use_strict_mode = 1'
+  notify: restart apache2
+
+- name: Disable url fopen
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='allow_url_fopen(\s)?='
+              line='allow_url_fopen = Off'
+  notify: restart apache2
+
+- name: Change soap.wsdl_cache_dir to new directory
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='soap.wsdl_cache_dir(\s)?='
+              line='soap.wsdl_cache_dir=/php/cache/wsdl'
+  notify: restart apache2
+
+- name: Change upload_tmp_dir path
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='upload_tmp_dir(\s)?='
+              line='upload_tmp_dir=/php/cache/upload_tmp'
+  notify: restart apache2
+
+- name: Exclude potentially harmfull php functions
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='disable_functions(\s)?='
+              line='disable_functions=exec,passthru,shell_exec,system,proc_open,popen'
+  notify: restart apache2
+
+- name: Set post_max_size
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='post_max_size(\s)?='
+              line='post_max_size = {{ php.post_max_size }}'
+  notify: restart apache2
+
+- name: Set upload_max_filesize
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='upload_max_filesize(\s)?='
+              line='upload_max_filesize = {{ php.upload_max_filesize }}'
+              create=yes
+  notify: restart apache2
+
+- name: Set memory_limit
+  lineinfile: dest=/etc/php/5.6/apache2/php.ini
+              regexp='memory_limit(\s)?='
+              line='memory_limit = {{ php.memory_limit }}'
+  notify: restart apache2

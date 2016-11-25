@@ -1,0 +1,20 @@
+---
+- name: Add PPA Repository
+  sudo: yes
+  apt_repository: repo={{ php.ppa }}
+
+- name: Update apt
+  sudo: yes
+  apt: update_cache=yes
+
+- name: Install PHP5 and Packages
+  become: yes
+  become_method: root
+  apt: pkg={{ item }} state=latest
+  with_items:
+    "{{ php.packages }}"
+  when: php.packages is defined
+  notify:
+    - restart php5.6-fpm
+
+- include: configure.yml

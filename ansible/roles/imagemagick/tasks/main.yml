@@ -1,0 +1,9 @@
+---
+- name: Install Image Magick
+  become: yes
+  become_method: root
+  apt: pkg={{ item }} state=latest
+  with_items:
+      - imagemagick
+      - libmagickcore-dev
+      - libmagickwand-dev

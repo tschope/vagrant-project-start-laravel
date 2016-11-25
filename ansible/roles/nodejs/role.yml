@@ -1,0 +1,8 @@
+---
+- name: Test the Node.js role
+  hosts: all
+  become: yes
+  roles:
+    - role: "nodejs"
+  vars:
+    nodejs_version: '4'

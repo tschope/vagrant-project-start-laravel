@@ -1,0 +1,33 @@
+---
+ - name: Permissão de pasta
+   file: path={{ configs.vm_path }} state=directory owner=www-data group=www-data mode=0775
+   become: yes
+   become_method: sudo
+
+ - name: Permissão de uso da Storage
+   file: path={{ configs.vm_path }}/storage state=directory mode=0777
+   become: yes
+   become_method: sudo
+
+ - name: Check Env
+   stat: path={{ configs.vm_path }}/.env
+   register: env_file
+
+ - name: Copia arquivo Env
+   become: yes
+   become_method: root
+   copy: src={{ configs.vm_path }}/.env.vagrant dest={{ configs.vm_path }}/.env owner=www-data group=www-data mode=0644
+   when: env_file.stat.exists == False
+
+ - name: Permissão de uso da Storage
+   file: path={{ configs.vm_path }}/bootstrap/cache/ state=directory mode=0777
+   become: yes
+   become_method: sudo
+
+ - name: Install Composer on Project
+   composer: command=install working_dir={{ configs.vm_path }}
+
+ - name: Install Migrations and seeds
+   shell: php artisan migrate --seed
+   args:
+    chdir: "{{ configs.vm_path }}"

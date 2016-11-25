@@ -1,0 +1,23 @@
+---
+- name: Remove Apache2
+  become: yes
+  become_method: sudo
+  shell: service apache2 stop
+
+- name: Remove Apache2
+  become: yes
+  become_method: sudo
+  shell: apt-get -y remove apache2
+
+- name: Check if anything needs autoremoving
+  become: yes
+  become_method: sudo
+  shell: apt-get -y --dry-run autoremove | grep -q "0 to remove"
+  register: check_autoremove
+  ignore_errors: True
+  changed_when: False
+  always_run: True
+
+- name: Autoremove unused packages
+  command: apt-get -y autoremove
+  when: "check_autoremove.rc != 0"

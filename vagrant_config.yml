@@ -1,0 +1,91 @@
+---
+configs: &configs
+  vm_box: &configs_vm_box
+    'ubuntu/trusty64'                           # Nome da imagem usada na VM
+  vm_name: &configs_vm_name
+    'sua.url.dev'                                 # Não pode conter espaços ou caracteres especiais
+  vm_memory: &configs_vm_memory
+    1024                                        # Quantidade de memória recomendada para a VM: >1024
+  vm_cpus: &configs_vm_cpus
+    1                                           # Quantidade de CPUs
+  vm_ip: &configs_vm_ip
+    '28.28.28.28'                               #ip da VM
+  vm_url: &configs_vm_url
+    'sua.url.dev'                                #url
+  vm_path: &configs_vm_path
+    '/var/www/sua.url.dev'                       #default path
+  project_root: &configs_project_root
+    '/var/www/sua.url.dev/public'                #default path site
+  prod_url: &configs_prod_url
+    'sua.url.dev'                         #prod url for replace on database Search replace
+  prod_path: &configs_prod_path
+    ''    #prod url for replace on database Search replace
+
+php:
+  ppa: "ppa:ondrej/php"
+  version: "php7.0"
+  packages:
+    - php7.0-common
+    - php7.0-cli
+    - php7.0-intl
+    - php7.0-curl
+    - php7.0-mysql
+    - php7.0-readline
+    - php7.0-mcrypt
+    - php7.0-json
+    - php7.0-mbstring
+    - php7.0-xml
+    - php7.0-zip
+    - php7.0-gd
+    - php7.0-fpm
+  timezone: America/Sao_Paulo
+  upload_max_filesize: "100M"
+  post_max_size: "100M"
+  memory_limit: "512M"
+  fpmsocket: "/run/php/php7.0-fpm.sock"
+
+apache2:
+  docroot: *configs_project_root
+  servername: *configs_vm_url
+
+nginx:
+  docroot: *configs_project_root
+  servername: *configs_vm_url
+
+mysql:
+  root_password: '123'
+  database: seubanco
+  user: seubanco
+  password: '123'
+  dump: ''
+
+ohmyzsh:
+  theme: 'steeef'
+
+nodejs:
+  version: '0.12'
+
+npm:
+  global_packages:
+    - npm
+    - gulp
+
+vagrant_local:
+  vm:
+    base_box: *configs_vm_box
+    hostname: *configs_vm_name
+    ip: *configs_vm_ip
+    memory: *configs_vm_memory
+    sharedfolder: ./
+    useVagrantCloud: '1'
+    syncType: '0'
+
+server:
+  packages:
+    - vim
+    - git
+    - htop
+    - unzip
+    - curl
+  timezone: America/Sao_Paulo
+  locale: pt_BR.UTF-8
