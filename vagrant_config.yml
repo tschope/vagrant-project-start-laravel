@@ -3,7 +3,7 @@ configs: &configs
   vm_box: &configs_vm_box
     'ubuntu/trusty64'                           # Nome da imagem usada na VM
   vm_name: &configs_vm_name
-    'yourproject.com'                            # Não pode conter espaços ou caracteres especiais
+    'seuprojeto.dev'                                 # Não pode conter espaços ou caracteres especiais
   vm_memory: &configs_vm_memory
     1024                                        # Quantidade de memória recomendada para a VM: >1024
   vm_cpus: &configs_vm_cpus
@@ -11,15 +11,15 @@ configs: &configs
   vm_ip: &configs_vm_ip
     '28.28.28.28'                               #ip da VM
   vm_url: &configs_vm_url
-    'http://sua.url.dev'                        #url
+    'sua.url.dev'                                #url
   vm_path: &configs_vm_path
-    '/var/www/sua.url.dev'                      #default path
+    '/var/www/sua.url.dev'                       #default path
   project_root: &configs_project_root
-    '/var/www/sua.url.dev/public'               #default path site
+    '/var/www/sua.url.dev/public'                #default path site
   prod_url: &configs_prod_url
-    ''                                          #prod url for replace on database Search replace
+    'sua.url.dev'                         #prod url for replace on database Search replace
   prod_path: &configs_prod_path
-    ''                                          #prod url for replace on database Search replace
+    ''    #prod url for replace on database Search replace
 
 php:
   ppa: "ppa:ondrej/php"

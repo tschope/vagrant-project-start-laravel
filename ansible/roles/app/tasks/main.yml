@@ -15,40 +15,40 @@
 
  - name: Copia arquivo Env
    become: yes
-   become_method: www-data
-   shell: echo "APP_ENV=local" > .env \
-          echo "APP_KEY=" >> .env \
-          echo "APP_DEBUG=true" >> .env \
-          echo "APP_LOG_LEVEL=debug" >> .env \
-          echo "APP_URL={{ configs.vm_url }}" >> .env \
-          echo "" >> .env \
-          echo "DB_CONNECTION=mysql" >> .env \
-          echo "DB_HOST=127.0.0.1" >> .env \
-          echo "DB_PORT=3306" >> .env \
-          echo "DB_DATABASE={{ mysql.database }}" >> .env \
-          echo "DB_USERNAME={{ mysql.user }}" >> .env \
-          echo "DB_PASSWORD={{ mysql.password }}" >> .env \
-          echo "" >> .env \
-          echo "BROADCAST_DRIVER=log" >> .env \
-          echo "CACHE_DRIVER=file" >> .env \
-          echo "SESSION_DRIVER=file" >> .env \
-          echo "QUEUE_DRIVER=sync" >> .env \
-          echo "" >> .env \
-          echo "REDIS_HOST=127.0.0.1" >> .env \
-          echo "REDIS_PASSWORD=null" >> .env \
-          echo "REDIS_PORT=6379" >> .env \
-          echo "" >> .env \
-          echo "MAIL_DRIVER=smtp" >> .env \
-          echo "MAIL_HOST=mailtrap.io" >> .env \
-          echo "MAIL_PORT=2525" >> .env \
-          echo "MAIL_USERNAME=null" >> .env \
-          echo "MAIL_PASSWORD=null" >> .env \
-          echo "MAIL_ENCRYPTION=null" >> .env \
-          echo "" >> .env \
-          echo "PUSHER_APP_ID=" >> .env \
-          echo "PUSHER_KEY=" >> .env \
-          echo "PUSHER_SECRET=" >> .env
-   #copy: src={{ configs.vm_path }}/.env.vagrant dest={{ configs.vm_path }}/.env owner=www-data group=www-data mode=0644
+   become_method: sudo
+   shell: echo "APP_ENV=local" > {{ configs.vm_path }}/.env \
+          echo "APP_KEY=" >> {{ configs.vm_path }}/.env \
+          echo "APP_DEBUG=true" >> {{ configs.vm_path }}/.env \
+          echo "APP_LOG_LEVEL=debug" >> {{ configs.vm_path }}/.env \
+          echo "APP_URL={{ configs.vm_url }}" >> {{ configs.vm_path }}/.env \
+          echo "" >> {{ configs.vm_path }}/.env \
+          echo "DB_CONNECTION=mysql" >> {{ configs.vm_path }}/.env \
+          echo "DB_HOST=127.0.0.1" >> {{ configs.vm_path }}/.env \
+          echo "DB_PORT=3306" >> {{ configs.vm_path }}/.env \
+          echo "DB_DATABASE={{ mysql.database }}" >> {{ configs.vm_path }}/.env \
+          echo "DB_USERNAME={{ mysql.user }}" >> {{ configs.vm_path }}/.env \
+          echo "DB_PASSWORD={{ mysql.password }}" >> {{ configs.vm_path }}/.env \
+          echo "" >> {{ configs.vm_path }}/.env \
+          echo "BROADCAST_DRIVER=log" >> {{ configs.vm_path }}/.env \
+          echo "CACHE_DRIVER=file" >> {{ configs.vm_path }}/.env \
+          echo "SESSION_DRIVER=file" >> {{ configs.vm_path }}/.env \
+          echo "QUEUE_DRIVER=sync" >> {{ configs.vm_path }}/.env \
+          echo "" >> {{ configs.vm_path }}/.env \
+          echo "REDIS_HOST=127.0.0.1" >> {{ configs.vm_path }}/.env \
+          echo "REDIS_PASSWORD=null" >> {{ configs.vm_path }}/.env \
+          echo "REDIS_PORT=6379" >> {{ configs.vm_path }}/.env \
+          echo "" >> {{ configs.vm_path }}/.env \
+          echo "MAIL_DRIVER=smtp" >> {{ configs.vm_path }}/.env \
+          echo "MAIL_HOST=mailtrap.io" >> {{ configs.vm_path }}/.env \
+          echo "MAIL_PORT=2525" >> {{ configs.vm_path }}/.env \
+          echo "MAIL_USERNAME=null" >> {{ configs.vm_path }}/.env \
+          echo "MAIL_PASSWORD=null" >> {{ configs.vm_path }}/.env \
+          echo "MAIL_ENCRYPTION=null" >> {{ configs.vm_path }}/.env \
+          echo "" >> {{ configs.vm_path }}/.env \
+          echo "PUSHER_APP_ID=" >> {{ configs.vm_path }}/.env \
+          echo "PUSHER_KEY=" >> {{ configs.vm_path }}/.env \
+          echo "PUSHER_SECRET=" >> {{ configs.vm_path }}/.env \
+          echo "" >> {{ configs.vm_path }}/.env
    when: env_file.stat.exists == False
 
  - name: Permissão de uso da Storage
