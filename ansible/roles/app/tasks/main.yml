@@ -20,7 +20,7 @@
           "APP_KEY=\n" >> {{ configs.vm_path }}/.env \
           "APP_DEBUG=true\n" >> {{ configs.vm_path }}/.env \
           "APP_LOG_LEVEL=debug\n" >> {{ configs.vm_path }}/.env \
-          "APP_URL={{ configs.vm_url }}\n" >> {{ configs.vm_path }}/.env \
+          "APP_URL=http://{{ configs.vm_url }}\n" >> {{ configs.vm_path }}/.env \
           "\n" >> {{ configs.vm_path }}/.env \
           "DB_CONNECTION=mysql\n" >> {{ configs.vm_path }}/.env \
           "DB_HOST=127.0.0.1\n" >> {{ configs.vm_path }}/.env \
