@@ -16,39 +16,39 @@
  - name: Copia arquivo Env
    become: yes
    become_method: sudo
-   shell: echo "APP_ENV=local" > {{ configs.vm_path }}/.env \
-          echo "APP_KEY=" >> {{ configs.vm_path }}/.env \
-          echo "APP_DEBUG=true" >> {{ configs.vm_path }}/.env \
-          echo "APP_LOG_LEVEL=debug" >> {{ configs.vm_path }}/.env \
-          echo "APP_URL={{ configs.vm_url }}" >> {{ configs.vm_path }}/.env \
-          echo "" >> {{ configs.vm_path }}/.env \
-          echo "DB_CONNECTION=mysql" >> {{ configs.vm_path }}/.env \
-          echo "DB_HOST=127.0.0.1" >> {{ configs.vm_path }}/.env \
-          echo "DB_PORT=3306" >> {{ configs.vm_path }}/.env \
-          echo "DB_DATABASE={{ mysql.database }}" >> {{ configs.vm_path }}/.env \
-          echo "DB_USERNAME={{ mysql.user }}" >> {{ configs.vm_path }}/.env \
-          echo "DB_PASSWORD={{ mysql.password }}" >> {{ configs.vm_path }}/.env \
-          echo "" >> {{ configs.vm_path }}/.env \
-          echo "BROADCAST_DRIVER=log" >> {{ configs.vm_path }}/.env \
-          echo "CACHE_DRIVER=file" >> {{ configs.vm_path }}/.env \
-          echo "SESSION_DRIVER=file" >> {{ configs.vm_path }}/.env \
-          echo "QUEUE_DRIVER=sync" >> {{ configs.vm_path }}/.env \
-          echo "" >> {{ configs.vm_path }}/.env \
-          echo "REDIS_HOST=127.0.0.1" >> {{ configs.vm_path }}/.env \
-          echo "REDIS_PASSWORD=null" >> {{ configs.vm_path }}/.env \
-          echo "REDIS_PORT=6379" >> {{ configs.vm_path }}/.env \
-          echo "" >> {{ configs.vm_path }}/.env \
-          echo "MAIL_DRIVER=smtp" >> {{ configs.vm_path }}/.env \
-          echo "MAIL_HOST=mailtrap.io" >> {{ configs.vm_path }}/.env \
-          echo "MAIL_PORT=2525" >> {{ configs.vm_path }}/.env \
-          echo "MAIL_USERNAME=null" >> {{ configs.vm_path }}/.env \
-          echo "MAIL_PASSWORD=null" >> {{ configs.vm_path }}/.env \
-          echo "MAIL_ENCRYPTION=null" >> {{ configs.vm_path }}/.env \
-          echo "" >> {{ configs.vm_path }}/.env \
-          echo "PUSHER_APP_ID=" >> {{ configs.vm_path }}/.env \
-          echo "PUSHER_KEY=" >> {{ configs.vm_path }}/.env \
-          echo "PUSHER_SECRET=" >> {{ configs.vm_path }}/.env \
-          echo "" >> {{ configs.vm_path }}/.env
+   shell: echo "APP_ENV=local \n" > {{ configs.vm_path }}/.env \
+          "APP_KEY=  \n" >> {{ configs.vm_path }}/.env \
+          "APP_DEBUG=true  \n" >> {{ configs.vm_path }}/.env \
+          "APP_LOG_LEVEL=debug  \n" >> {{ configs.vm_path }}/.env \
+          "APP_URL={{ configs.vm_url }}  \n" >> {{ configs.vm_path }}/.env \
+          "  \n" >> {{ configs.vm_path }}/.env \
+          "DB_CONNECTION=mysql  \n" >> {{ configs.vm_path }}/.env \
+          "DB_HOST=127.0.0.1  \n" >> {{ configs.vm_path }}/.env \
+          "DB_PORT=3306  \n" >> {{ configs.vm_path }}/.env \
+          "DB_DATABASE={{ mysql.database }}  \n" >> {{ configs.vm_path }}/.env \
+          "DB_USERNAME={{ mysql.user }}  \n" >> {{ configs.vm_path }}/.env \
+          "DB_PASSWORD={{ mysql.password }}  \n" >> {{ configs.vm_path }}/.env \
+          "  \n" >> {{ configs.vm_path }}/.env \
+          "BROADCAST_DRIVER=log  \n" >> {{ configs.vm_path }}/.env \
+          "CACHE_DRIVER=file  \n" >> {{ configs.vm_path }}/.env \
+          "SESSION_DRIVER=file  \n" >> {{ configs.vm_path }}/.env \
+          "QUEUE_DRIVER=sync  \n" >> {{ configs.vm_path }}/.env \
+          "  \n" >> {{ configs.vm_path }}/.env \
+          "REDIS_HOST=127.0.0.1  \n" >> {{ configs.vm_path }}/.env \
+          "REDIS_PASSWORD=null  \n" >> {{ configs.vm_path }}/.env \
+          "REDIS_PORT=6379  \n" >> {{ configs.vm_path }}/.env \
+          "  \n" >> {{ configs.vm_path }}/.env \
+          "MAIL_DRIVER=smtp  \n" >> {{ configs.vm_path }}/.env \
+          "MAIL_HOST=mailtrap.io  \n" >> {{ configs.vm_path }}/.env \
+          "MAIL_PORT=2525  \n" >> {{ configs.vm_path }}/.env \
+          "MAIL_USERNAME=null  \n" >> {{ configs.vm_path }}/.env \
+          "MAIL_PASSWORD=null  \n" >> {{ configs.vm_path }}/.env \
+          "MAIL_ENCRYPTION=null  \n" >> {{ configs.vm_path }}/.env \
+          "  \n" >> {{ configs.vm_path }}/.env \
+          "PUSHER_APP_ID=  \n" >> {{ configs.vm_path }}/.env \
+          "PUSHER_KEY=  \n" >> {{ configs.vm_path }}/.env \
+          "PUSHER_SECRET=  \n" >> {{ configs.vm_path }}/.env \
+          "  \n" >> {{ configs.vm_path }}/.env
    when: env_file.stat.exists == False
 
  - name: Permissão de uso da Storage
